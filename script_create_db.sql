@@ -60,3 +60,25 @@ CREATE TABLE books (
 		REFERENCES book_genres(genre)
 	
 );
+
+-- Inserting data
+
+INSERT INTO book_status
+VALUES
+('read'),
+('reading'),
+('to be read'),
+('interrupted');
+
+INSERT INTO book_formats 
+VALUES 
+('ebook'),
+('physical'),
+('audiobook');
+
+INSERT INTO book_genres 
+VALUES
+('romance'),
+('poetry'),
+('science fiction'),
+('self-help');
