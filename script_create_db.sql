@@ -82,3 +82,53 @@ VALUES
 ('poetry'),
 ('science fiction'),
 ('self-help');
+
+-- Changing column name as I could not find the exact birth date of some authors
+ALTER TABLE authors 
+RENAME COLUMN date_of_birth TO year_of_birth;
+
+-- Changing table column type accordingly
+ALTER TABLE authors 
+ALTER COLUMN year_of_birth TYPE INT
+USING EXTRACT(YEAR FROM year_of_birth);
+
+-- Inserting data via csv file
+-- Inputting data into a temporary table
+CREATE TABLE temporary_table(
+	title VARCHAR(255),
+	author VARCHAR(50),
+	country VARCHAR(50),
+	year_of_birth INT,
+	gender VARCHAR(6),
+	publisher VARCHAR(50),
+	number_of_pages INT,
+	publishing_date DATE,
+	reading_date DATE,
+	status VARCHAR(50),
+	book_format VARCHAR(50),
+	genre VARCHAR(50),
+	isbn CHAR(13),
+	price NUMERIC(10,2)
+
+);
+
+-- Insert data from spreadsheet to the table
+-- COPY temporary_table FROM 'C:\Users\nlklo\Downloads\book_spreadsheet.csv' DELIMITER ',' CSV HEADER;
+
+-- Handling null values and correcting number format
+ALTER TABLE temporary_table 
+ALTER COLUMN year_of_birth TYPE INT;
+
+UPDATE temporary_table 
+SET year_of_birth = 0
+WHERE year_of_birth IS NULL;
+
+-- Insert author data
+INSERT INTO authors(author, gender, country, year_of_birth)
+SELECT DISTINCT author, gender, country, year_of_birth -- Important to add DISTINCT as there are duplicated authors in the spreadsheet
+FROM temporary_table;
+
+-- Insert publisher data
+INSERT INTO publishers(publisher)
+SELECT DISTINCT publisher
+FROM temporary_table;
