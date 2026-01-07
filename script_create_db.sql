@@ -132,3 +132,40 @@ FROM temporary_table;
 INSERT INTO publishers(publisher)
 SELECT DISTINCT publisher
 FROM temporary_table;
+
+-- Insert genre data
+INSERT INTO book_genres(genre)
+SELECT DISTINCT genre
+FROM temporary_table
+-- fixing error of genres that are already in the table
+WHERE genre NOT IN (
+	SELECT book_genres.genre 
+	FROM book_genres
+);
+
+-- Insert data in books
+-- Fixing issue with author_id and publisher_id by using JOIN
+INSERT INTO books(title, author_id, publisher_id, number_of_pages, publishing_date, reading_date, status, book_format, genre, isbn, price)
+SELECT 
+	tt.title, 
+	-- The author_id is not stored in the temporary_table, but in the authors table
+	-- Using JOIN to match the author name from the tt to the authors table 
+	-- But selecting only the author_id in for the books table
+	a.author_id, 
+	-- The same happens with publisher_id, which is not stored in the tt table
+	-- Using the JOIN to match the publisher name 
+	-- But selecting only the publisher Id
+	p.publisher_id, 
+	tt.number_of_pages, 
+	tt.publishing_date, 
+	tt.reading_date, 
+	tt.status, 
+	tt.book_format, 
+	tt.genre, 
+	tt.isbn, 
+	tt.price
+FROM temporary_table tt
+JOIN authors a
+	ON a.author = tt.author 
+JOIN publishers p
+	ON p.publisher = tt.publisher;
