@@ -14,3 +14,19 @@ SELECT
 	MIN(year_of_birth) AS oldest_author,
 	MAX(year_of_birth) AS youngest_author
 FROM authors;
+
+-- Author's gender
+SELECT 
+	gender,
+	count(author) AS number_of_authors -- the count counts the rows of each group!
+FROM authors
+GROUP BY gender
+ORDER BY number_of_authors DESC;
+
+-- Author's country
+SELECT
+	country,
+	count(author) AS number_of_authors
+FROM authors
+GROUP BY country
+ORDER BY number_of_authors DESC;
