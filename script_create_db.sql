@@ -169,3 +169,6 @@ JOIN authors a
 	ON a.author = tt.author 
 JOIN publishers p
 	ON p.publisher = tt.publisher;
+
+-- Deleting the temporary table
+DROP TABLE temporary_table;
