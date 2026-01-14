@@ -1,12 +1,16 @@
-# First_SQL_Project_Library
+# SQL Study: Bookshelf Database
+
+## Introduction
 
 Structured query language (SQL) is a widely used programming language designed to interact with relational database management systems (RDBMS). Due to the fact it was created specifically for this purpose, it is highly efficient and has a high adoption rate among beginners.
 
-The objective of this project is to practice the use of SQL to create and modify databases and also use its capabilities to provide insights from data. For this purpose, a library database was created containing all the books I have read in 2025, and some statistics were retrieved to analyze my reading patterns.
+The objective of this project is to practice the use of SQL to create and modify databases and also use its capabilities to provide insights from data. For this purpose, a bookshelf database was created containing all the books I have read in 2025, and some statistics were retrieved to analyze my reading patterns.
 
 This project was developed using the software DBeaver Community, which is a Free Open-Source Database Management Tool. This software is recommended for personal projects and supports database systems like My SQL, MariaDB, PostgreSQL, SQLite, and others.
 
 [...]
+
+## Database Creation
 
 Using DBeaver, the first step was to create the library database and then define the parent tables:
 
