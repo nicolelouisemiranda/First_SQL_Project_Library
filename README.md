@@ -1,5 +1,7 @@
 # SQL Study: Bookshelf Database
 
+_This project focuses on building a personal bookshelf database using SQL to practice database creation, data modeling, and data insertion techniques. Using PostgreSQL and DBeaver, I designed relational tables, which enables the analysis of my 2025 reading patterns._
+
 ## Introduction
 
 Structured query language (SQL) is a widely used programming language designed to interact with relational database management systems (RDBMS). Due to the fact it was created specifically for this purpose, it is highly efficient and has a high adoption rate among beginners.
