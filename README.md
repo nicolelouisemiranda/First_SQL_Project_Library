@@ -101,6 +101,8 @@ CREATE TABLE books (
 );
 ```
 
+<img src="db_diagram.png" alt="Database Diagram">
+
 ## Data Insertion
 
 The next step was to insert data in the tables. I tested two methods for this task: manually inserting data using SQL statements and bulk inserting data by importing a CSV file. For the smaller tables (`book_status`, `book_formats`, and `book_genres`), I chose to insert the data manually.
