@@ -27,8 +27,16 @@ I started by planning the information I would collect about the books I read in 
 * Genre
 * Price
 
+Based on this list I planned to create 6 different tables: 
 
-[...]
+* A table to store book information
+* A table to store author information
+* A table to store publisher information
+* A table to store book genres
+* A table to store book formats (audiobook, physical, ebook)
+* A table to store book status (read, reading, interrupted, etc.)
+
+The relationships between these tables follow a one-to-many (1:N) structure, meaning that one record in a table can be related to multiple records in another table. For example, an author can have multiple books, and a publisher can also have multiple books in its catalog. For this reason, the books table was designed as a child table, with foreign keys referencing the corresponding rows in the parent tables.
 
 ## Database Creation
 
@@ -102,6 +110,7 @@ CREATE TABLE books (
 	
 );
 ```
+Below is an image of the database diagram illustrating the relationships between the tables:
 
 <img src="db_diagram.png" alt="Database Diagram">
 
@@ -369,3 +378,5 @@ book_id|title                                                                   
 * Percona | [Why PostgreSQL NULL Values Break Your Queries (And How to Fix Them)](https://www.percona.com/blog/handling-null-values-in-postgresql/)
 * RelationalDBDesign | [Linking Tables with Primary Keys and Foreign Keys](https://www.relationaldbdesign.com/database-design/module2/linking-relational-database-tables.php?utm_source=chatgpt.com)
 * DataCamp | [SQL Foreign Key](https://www.datacamp.com/tutorial/foreign-key)
+* Redgate | [What Is a One-to-Many Relationship in a Database?](https://www.red-gate.com/blog/one-to-many-relationship)
+* Wikipedia | [One-to-many (data model)](https://en.wikipedia.org/wiki/One-to-many_(data_model))
