@@ -370,6 +370,21 @@ book_id|title                                                                   
      26|Se Deus me Chamar não Vou                                                                           |        2|          18|            160|     25/04/2024|  01/12/2025|read  |ebook      |fiction        |9786585832380|64.00|
      27|É Sempre a Hora da Nossa Morte Amem                                                                 |        2|          18|            240|     25/08/2021|  01/11/2025|read  |ebook      |fiction        |9786586135374|57.00|
 ```
+## Exploring the Data
+
+```
+-- Total number of pages read and total price if I bought the all the physical books 
+SELECT 
+	SUM(number_of_pages) AS total_number_of_pages,
+	SUM(price) AS total_price
+FROM books;
+```
+Result:
+```
+total_number_of_pages|total_price|
+---------------------+-----------+
+                 7512|    1178.26|
+```
 
 ## References
 * IBM | [O que é linguagem de consulta estruturada (SQL)?](https://www.ibm.com/br-pt/think/topics/structured-query-language)
