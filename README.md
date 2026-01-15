@@ -100,6 +100,7 @@ CREATE TABLE books (
 	
 );
 ```
+
 ## Data Insertion
 
 The next step was to insert data in the tables. I tested two methods for this task: manually inserting data using SQL statements and bulk inserting data by importing a CSV file. For the smaller tables (`book_status`, `book_formats`, and `book_genres`), I chose to insert the data manually.
@@ -126,6 +127,7 @@ VALUES
 ('science fiction'),
 ('self-help');
 ```
+
 I created a CSV file based on an Excel spreadsheet where I collected the missing data needed to fill the remaining columns of the database tables. During my research, I noticed that some authors did not have their complete birth dates available online. Therefore, I decided to change the column `date_of_birth` to `year_of_birth` to keep the information consistent. To do this, I renamed the column using the command `RENAME COLUMN` and, for consistency, changed the column data type from `DATE` to `INT` with the following SQL commands:
 
 ```
@@ -140,6 +142,7 @@ USING EXTRACT(YEAR FROM year_of_birth);
 ```
 
 To store the bulk-inserted data, I created a temporary table with the same columns as the csv file. This allowed me to store the data temporarily before inserting it into the permanent tables of the database.
+
 ```
 -- Inserting data via csv file
 -- Inputting data into a temporary table
@@ -160,6 +163,7 @@ CREATE TABLE temporary_table(
 	price NUMERIC(10,2)
 );
 ```
+
 The first issue I faced when transferring data from the temporary_table to the parent tables was the NULL value in one of the entries of the `year_of_birth` column, specifically for the author "Daniel Martins de Barros". I noticed that the command was not transferring the data from the `temporary_table` to the `authors` table. After some research, I learned that PostgreSQL treats NULL values as UNKNOWN rather than FALSE. This causes some commands to behave differently than expected. To overcome this issue, I used the `NULLIF` function to convert the null value to zero. 
 
 ```
@@ -219,18 +223,17 @@ JOIN publishers p
 	ON p.publisher = tt.publisher;
 ```
 
+With this step completed, all tables were filled with their respective data. Since the `temporary_table` was no longer needed, it was removed from the database.
+
 ```
 -- Deleting the temporary table
 DROP TABLE temporary_table;
 ```
 
-
-
-
-
-
 ## Resulting Tables
+
 Result for the `book_status` table:
+
 ```
 status     |
 -----------+
@@ -239,7 +242,9 @@ reading    |
 to be read |
 interrupted|
 ```
+
 Result for the `book_formats` table:
+
 ```
 book_format|
 -----------+
@@ -247,7 +252,9 @@ ebook      |
 physical   |
 audiobook  |
 ```
+
 Result for the `book_genres` table:
+
 ```
 genre          |
 ---------------+
@@ -259,7 +266,9 @@ fiction        |
 non-fiction    |
 science-fiction|
 ```
+
 Result for the `publishers` table:
+
 ```
 publisher_id|publisher           |
 ------------+--------------------+
@@ -282,7 +291,9 @@ publisher_id|publisher           |
           17|Galera              |
           18|Editora Nos         |
 ```
+
 Result for the `authors` table:
+
 ```
 author_id|author                  |gender|country                 |year_of_birth|
 ---------+------------------------+------+------------------------+-------------+
@@ -312,7 +323,9 @@ author_id|author                  |gender|country                 |year_of_birth
        24|Iain Reid               |Man   |Canada                  |         1981|
        25|Ailton Krenak           |Man   |Brazil                  |         1953|
 ```
+
 Result for the `books` table:
+
 ```
 book_id|title                                                                                               |author_id|publisher_id|number_of_pages|publishing_date|reading_date|status|book_format|genre          |isbn         |price|
 -------+----------------------------------------------------------------------------------------------------+---------+------------+---------------+---------------+------------+------+-----------+---------------+-------------+-----+
@@ -348,4 +361,7 @@ book_id|title                                                                   
 ## References
 * IBM | [O que é linguagem de consulta estruturada (SQL)?](https://www.ibm.com/br-pt/think/topics/structured-query-language)
 * DBeaver Community | [Free Universal Database Tool.](https://dbeaver.io/)
+* Dio | [Boas Práticas para a Criação de Tabelas em Bancos de Dados SQL](https://www.dio.me/en/articles/boas-praticas-para-a-criacao-de-tabelas-em-bancos-de-dados-sql)
 * Percona | [Why PostgreSQL NULL Values Break Your Queries (And How to Fix Them)](https://www.percona.com/blog/handling-null-values-in-postgresql/)
+* RelationalDBDesign | [Linking Tables with Primary Keys and Foreign Keys](https://www.relationaldbdesign.com/database-design/module2/linking-relational-database-tables.php?utm_source=chatgpt.com)
+* DataCamp | [SQL Foreign Key](https://www.datacamp.com/tutorial/foreign-key)
