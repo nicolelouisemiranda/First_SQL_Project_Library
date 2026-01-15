@@ -160,27 +160,16 @@ CREATE TABLE temporary_table(
 	price NUMERIC(10,2)
 );
 ```
-
-
-
-
-
+The first issue I faced when transferring data from the temporary_table to the parent tables was the NULL value in one of the entries of the `year_of_birth` column, specifically for the author "Daniel Martins de Barros". I noticed that the command was not transferring the data from the `temporary_table` to the `authors` table. After some research, I learned that PostgreSQL treats NULL values as UNKNOWN rather than FALSE. This causes some commands to behave differently than expected. To overcome this issue, I used the `NULLIF` function to convert the null value to zero. 
 
 ```
--- Handling null values and correcting number format
-ALTER TABLE temporary_table 
-ALTER COLUMN year_of_birth TYPE INT;
-
-UPDATE temporary_table 
-SET year_of_birth = 0
-WHERE year_of_birth IS NULL;
-
+-- Handling null values
 -- Insert author data
 INSERT INTO authors(author, gender, country, year_of_birth)
 SELECT DISTINCT author, gender, country, NULLIF(year_of_birth, 0) -- Important to add DISTINCT as there are duplicated authors in the spreadsheet
 FROM temporary_table;
 ```
-
+Next, I transferred the publishers and genres data from the `temporary_table` to their respective tables. During this step, I had to adapt the code to handle cases where some book genres present in the `temporary_table` already existed in the `book_genres` table. Without this adjustment, the insertion would fail due to duplicate entries, since genre is defined as a primary key in the `book_genres` table.
 
 ```
 -- Insert publisher data
@@ -198,6 +187,46 @@ WHERE genre NOT IN (
 	FROM book_genres
 );
 ```
+
+Finally, I inserted the remaining data in the `books` table. This step was particularly complicated because the `author_id` and `publisher_id` columns must be filled with the primary keys corresponding to each author and publisher. However, this information was not stored in the `temporary_table` but in the `authors` and `publishers` table. After some reasearch, I found that the best way to insert the data correctly was by using the `JOIN` clause.
+
+```
+-- Insert data in books
+-- Fixing issue with author_id and publisher_id by using JOIN
+INSERT INTO books(title, author_id, publisher_id, number_of_pages, publishing_date, reading_date, status, book_format, genre, isbn, price)
+SELECT 
+	tt.title, 
+	-- The author_id is not stored in the temporary_table, but in the authors table
+	-- Using JOIN to match the author name from the tt to the authors table 
+	-- But selecting only the author_id in for the books table
+	a.author_id, 
+	-- The same happens with publisher_id, which is not stored in the tt table
+	-- Using the JOIN to match the publisher name 
+	-- But selecting only the publisher Id
+	p.publisher_id, 
+	tt.number_of_pages, 
+	tt.publishing_date, 
+	tt.reading_date, 
+	tt.status, 
+	tt.book_format, 
+	tt.genre, 
+	tt.isbn, 
+	tt.price
+FROM temporary_table tt
+JOIN authors a
+	ON a.author = tt.author 
+JOIN publishers p
+	ON p.publisher = tt.publisher;
+```
+
+```
+-- Deleting the temporary table
+DROP TABLE temporary_table;
+```
+
+
+
+
 
 
 ## Resulting Tables
