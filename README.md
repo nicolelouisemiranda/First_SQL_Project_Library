@@ -386,6 +386,66 @@ total_number_of_pages|total_price|
                  7512|    1178.26|
 ```
 
+
+```
+-- See top 5 books with higher page count
+SELECT 
+	title,
+	number_of_pages
+FROM books
+ORDER BY number_of_pages DESC
+LIMIT 5;
+```
+Result:
+```
+title                                                                                               |number_of_pages|
+----------------------------------------------------------------------------------------------------+---------------+
+The Fourth Wing                                                                                     |            544|
+Children of Time                                                                                    |            520|
+The Anxious Generation: How the Great Rewiring of Childhood Is Causing an Epidemic of Mental Illness|            440|
+The Kiss of Deception                                                                               |            384|
+Old Mans War                                                                                        |            368|
+```
+
+```
+-- See all books read in 2025 in chronological order 
+SELECT title, reading_date
+FROM books 
+ORDER BY books.reading_date ASC;
+```
+```
+title                                                                                               |reading_date|
+----------------------------------------------------------------------------------------------------+------------+
+Shakespeare: The World as a Stage                                                                   |  06/01/2025|
+The Kiss of Deception                                                                               |  24/01/2025|
+Children of Time                                                                                    |  16/02/2025|
+Holocausto Brasileiro                                                                               |  17/02/2025|
+Old Mans War                                                                                        |  24/03/2025|
+O Lado Bom do Lado Ruim                                                                             |  14/04/2025|
+I Robot                                                                                             |  14/04/2025|
+I'm Thinking of Ending Things                                                                       |  26/04/2025|
+Recursion                                                                                           |  05/05/2025|
+Nonviolent Communication                                                                            |  22/05/2025|
+Vidas Secas                                                                                         |  29/05/2025|
+I Who Have Never Known Man                                                                          |  30/05/2025|
+Almond                                                                                              |  06/06/2025|
+The Anxious Generation: How the Great Rewiring of Childhood Is Causing an Epidemic of Mental Illness|  18/06/2025|
+Men Explain Things to Me                                                                            |  23/06/2025|
+A Fall of Moondust                                                                                  |  09/07/2025|
+Upgrade                                                                                             |  22/07/2025|
+O Amanhã não está a Venda                                                                           |  06/08/2025|
+The Fourth Wing                                                                                     |  18/08/2025|
+Fermats Last Theorem                                                                                |  27/08/2025|
+Dracula                                                                                             |  29/08/2025|
+Frankenstein                                                                                        |  17/09/2025|
+The Strange Case of Dr Jekyll and Mr Hyde                                                           |  01/10/2025|
+A Matter of Life and Death                                                                          |  11/10/2025|
+É Sempre a Hora da Nossa Morte Amem                                                                 |  01/11/2025|
+Verity                                                                                              |  22/11/2025|
+Se Deus me Chamar não Vou                                                                           |  01/12/2025|
+```
+
+
 ## References
 * IBM | [O que é linguagem de consulta estruturada (SQL)?](https://www.ibm.com/br-pt/think/topics/structured-query-language)
 * DBeaver Community | [Free Universal Database Tool.](https://dbeaver.io/)
