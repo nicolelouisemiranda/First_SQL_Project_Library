@@ -1,13 +1,21 @@
--- See all books read in 2025 in chronological order 
-SELECT title, reading_date
-FROM books 
-ORDER BY books.reading_date ASC;
-
 -- Total number of pages read and total price if I bought the all the physical books 
 SELECT 
 	SUM(number_of_pages) AS total_number_of_pages,
 	SUM(price) AS total_price
 FROM books;
+
+-- See top 5 books with higher page count
+SELECT 
+	title,
+	number_of_pages
+FROM books
+ORDER BY number_of_pages DESC
+LIMIT 5;
+
+-- See all books read in 2025 in chronological order 
+SELECT title, reading_date
+FROM books 
+ORDER BY books.reading_date ASC;
 
 -- Author's age
 SELECT
