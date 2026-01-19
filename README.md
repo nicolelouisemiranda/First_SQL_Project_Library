@@ -371,7 +371,11 @@ book_id|title                                                                   
      27|É Sempre a Hora da Nossa Morte Amem                                                                 |        2|          18|            240|     25/08/2021|  01/11/2025|read  |ebook      |fiction        |9786586135374|57.00|
 ```
 ## Exploring the Data
+The first two questions I wanted to answer by analyzing the books data were:
+* What is the total number of pages I read in 2025?
+* If I had bought the physical versions of all the books I read, how much would I have spent?
 
+To answer these questions, I wrote the following query:
 ```
 -- Total number of pages read and total price if I bought the all the physical books 
 SELECT 
@@ -385,7 +389,9 @@ total_number_of_pages|total_price|
 ---------------------+-----------+
                  7512|    1178.26|
 ```
+Therefore, I read 7512 pages in 2025. This would have cost me over one thousand reais if I had bought all these books in physical format instead of reading e-books.
 
+Still analyzing the number of pages, I wrote the following query to check which were the five longest books I read:
 
 ```
 -- See top 5 books with higher page count
@@ -406,13 +412,16 @@ The Anxious Generation: How the Great Rewiring of Childhood Is Causing an Epidem
 The Kiss of Deception                                                                               |            384|
 Old Mans War                                                                                        |            368|
 ```
+Here, we can see that The Fourth Wing is the longest book, with 544 pages.
 
+I also checked the books I read in chronological order using the following query:
 ```
 -- See all books read in 2025 in chronological order 
 SELECT title, reading_date
 FROM books 
 ORDER BY books.reading_date ASC;
 ```
+Result:
 ```
 title                                                                                               |reading_date|
 ----------------------------------------------------------------------------------------------------+------------+
@@ -444,7 +453,7 @@ A Matter of Life and Death                                                      
 Verity                                                                                              |  22/11/2025|
 Se Deus me Chamar não Vou                                                                           |  01/12/2025|
 ```
-
+From these results, it is possible to see that I started the year alternating between science fiction and other genres. Around September, I went through a phase of gothic literature, reading Dracula, Frankenstein, and The Strange Case of Dr Jekyll and Mr Hyde one after the other.
 
 ## References
 * IBM | [O que é linguagem de consulta estruturada (SQL)?](https://www.ibm.com/br-pt/think/topics/structured-query-language)
