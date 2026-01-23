@@ -529,6 +529,49 @@ romance        |              2|
 ```
 
 Fix this issue!
+```
+-- Fixing the issue of formatting with the science-fiction genre
+UPDATE books 
+SET genre = 'science-fiction'
+WHERE genre = 'science fiction';
+
+-- Testing results when grouping books by genre
+SELECT 
+	genre,
+	count(title) AS number_of_books
+FROM books
+GROUP BY genre
+ORDER BY number_of_books DESC;
+```
+```
+genre          |number_of_books|
+---------------+---------------+
+science-fiction|              9|
+fiction        |              7|
+non-fiction    |              7|
+self-help      |              2|
+romance        |              2|
+```
+
+```
+-- Did I read more than one book from any of the authors?
+SELECT 
+    b.title,
+    a.author
+FROM books b
+JOIN authors a
+    ON a.author_id = b.author_id
+WHERE b.author_id IN (SELECT author_id FROM books GROUP BY author_id HAVING COUNT(author_id) > 1)
+ORDER BY a.author DESC;
+```
+```
+title                              |author                  |
+-----------------------------------+------------------------+
+Se Deus me Chamar não Vou          |Mariana Salomao Carrara |
+É Sempre a Hora da Nossa Morte Amem|Mariana Salomao Carrara |
+Upgrade                            |Blake Crouch            |
+Recursion                          |Blake Crouch            |
+```
 
 ## References
 * IBM | [O que é linguagem de consulta estruturada (SQL)?](https://www.ibm.com/br-pt/think/topics/structured-query-language)
@@ -539,3 +582,5 @@ Fix this issue!
 * DataCamp | [SQL Foreign Key](https://www.datacamp.com/tutorial/foreign-key)
 * Redgate | [What Is a One-to-Many Relationship in a Database?](https://www.red-gate.com/blog/one-to-many-relationship)
 * Wikipedia | [One-to-many (data model)](https://en.wikipedia.org/wiki/One-to-many_(data_model))
+* DataCamp | [SQL Subquery: A Comprehensive Guide](https://www.datacamp.com/tutorial/sql-subquery)
+* 
