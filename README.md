@@ -508,6 +508,27 @@ South Korea             |                1|
 Ireland                 |                1|
 Canada                  |                1|
 ```
+```
+-- Group books by genre
+SELECT 
+	genre,
+	count(title) AS number_of_books
+FROM books
+GROUP BY genre
+ORDER BY number_of_books DESC;
+```
+```
+genre          |number_of_books|
+---------------+---------------+
+fiction        |              7|
+non-fiction    |              7|
+science fiction|              6|
+science-fiction|              3|
+self-help      |              2|
+romance        |              2|
+```
+
+Fix this issue!
 
 ## References
 * IBM | [O que é linguagem de consulta estruturada (SQL)?](https://www.ibm.com/br-pt/think/topics/structured-query-language)
