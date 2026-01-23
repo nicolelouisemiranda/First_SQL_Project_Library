@@ -455,6 +455,7 @@ Se Deus me Chamar não Vou                                                      
 ```
 From these results, it is possible to see that I started the year alternating between science fiction and other genres. Around September, I went through a phase of gothic literature, reading Dracula, Frankenstein, and The Strange Case of Dr Jekyll and Mr Hyde one after the other.
 
+
 ```
 -- Author's age
 SELECT 
