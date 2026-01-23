@@ -18,15 +18,18 @@ FROM books
 ORDER BY books.reading_date ASC;
 
 -- Author's age
-SELECT
-	MIN(year_of_birth) AS oldest_author,
-	MAX(year_of_birth) AS youngest_author
-FROM authors;
+SELECT 
+	author, 
+	year_of_birth
+FROM authors
+WHERE 
+	year_of_birth = (SELECT min(year_of_birth) FROM authors) OR 
+	year_of_birth = (SELECT max(year_of_birth) FROM authors);
 
 -- Author's gender
 SELECT 
 	gender,
-	count(author) AS number_of_authors -- the count counts the rows of each group!
+	count(author) AS number_of_authors -- the count function counts the rows of each group!
 FROM authors
 GROUP BY gender
 ORDER BY number_of_authors DESC;
