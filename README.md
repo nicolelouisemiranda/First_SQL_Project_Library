@@ -455,6 +455,60 @@ Se Deus me Chamar não Vou                                                      
 ```
 From these results, it is possible to see that I started the year alternating between science fiction and other genres. Around September, I went through a phase of gothic literature, reading Dracula, Frankenstein, and The Strange Case of Dr Jekyll and Mr Hyde one after the other.
 
+```
+-- Author's age
+SELECT 
+	author, 
+	year_of_birth
+FROM authors
+WHERE 
+	year_of_birth = (SELECT min(year_of_birth) FROM authors) OR 
+	year_of_birth = (SELECT max(year_of_birth) FROM authors);
+```
+```
+author                  |year_of_birth|
+------------------------+-------------+
+Mariana Salomao Carrara |         1986|
+Mary Shelley            |         1797|
+```
+```
+-- Author's gender
+SELECT 
+	gender,
+	count(author) AS number_of_authors -- the count function counts the rows of each group!
+FROM authors
+GROUP BY gender
+ORDER BY number_of_authors DESC;
+```
+```
+gender|number_of_authors|
+------+-----------------+
+Man   |               16|
+Female|                9|
+```
+
+```
+-- Author's country
+SELECT
+	country,
+	count(author) AS number_of_authors
+FROM authors
+GROUP BY country
+ORDER BY number_of_authors DESC;
+```
+```
+country                 |number_of_authors|
+------------------------+-----------------+
+United States of America|               10|
+United Kingdom          |                5|
+Brazil                  |                5|
+Belgium                 |                1|
+Russia                  |                1|
+South Korea             |                1|
+Ireland                 |                1|
+Canada                  |                1|
+```
+
 ## References
 * IBM | [O que é linguagem de consulta estruturada (SQL)?](https://www.ibm.com/br-pt/think/topics/structured-query-language)
 * DBeaver Community | [Free Universal Database Tool.](https://dbeaver.io/)
