@@ -455,7 +455,7 @@ Se Deus me Chamar não Vou                                                      
 ```
 From these results, it is possible to see that I started the year alternating between science fiction and other genres. Around September, I went through a phase of gothic literature, reading Dracula, Frankenstein, and The Strange Case of Dr Jekyll and Mr Hyde one after the other.
 
-
+Next, I explored the characteristics of the authors I read in 2025, starting by identifying the oldest and youngest authors.
 ```
 -- Author's age
 SELECT 
@@ -466,12 +466,14 @@ WHERE
 	year_of_birth = (SELECT min(year_of_birth) FROM authors) OR 
 	year_of_birth = (SELECT max(year_of_birth) FROM authors);
 ```
+Result:
 ```
 author                  |year_of_birth|
 ------------------------+-------------+
 Mariana Salomao Carrara |         1986|
 Mary Shelley            |         1797|
 ```
+Then, I checked the gender distribution of the authors I read.
 ```
 -- Author's gender
 SELECT 
@@ -481,13 +483,14 @@ FROM authors
 GROUP BY gender
 ORDER BY number_of_authors DESC;
 ```
+Result:
 ```
 gender|number_of_authors|
 ------+-----------------+
 Man   |               16|
 Female|                9|
 ```
-
+Next, I analyzed the nationalities of the authors.
 ```
 -- Author's country
 SELECT
@@ -497,6 +500,7 @@ FROM authors
 GROUP BY country
 ORDER BY number_of_authors DESC;
 ```
+Result:
 ```
 country                 |number_of_authors|
 ------------------------+-----------------+
@@ -509,6 +513,7 @@ South Korea             |                1|
 Ireland                 |                1|
 Canada                  |                1|
 ```
+After that, I wrote a query to analyze the number of books read by genre. During this step, I noticed an issue in the data.
 ```
 -- Group books by genre
 SELECT 
@@ -518,6 +523,7 @@ FROM books
 GROUP BY genre
 ORDER BY number_of_books DESC;
 ```
+Result:
 ```
 genre          |number_of_books|
 ---------------+---------------+
@@ -528,8 +534,7 @@ science-fiction|              3|
 self-help      |              2|
 romance        |              2|
 ```
-
-Fix this issue!
+As shown above, there is an inconsistency in the science-fiction genre, since some books are labeled as "science fiction" while others are labeled as "science-fiction". To fix this, I ran the following script:
 ```
 -- Fixing the issue of formatting with the science-fiction genre
 UPDATE books 
@@ -544,6 +549,7 @@ FROM books
 GROUP BY genre
 ORDER BY number_of_books DESC;
 ```
+Result:
 ```
 genre          |number_of_books|
 ---------------+---------------+
@@ -553,7 +559,8 @@ non-fiction    |              7|
 self-help      |              2|
 romance        |              2|
 ```
-
+With the corrected results, I can see that the most read genre in 2025 was science-fiction, followed by fiction and non-fiction.
+Finally, I investigated whether I had read more than one book by any author.
 ```
 -- Did I read more than one book from any of the authors?
 SELECT 
@@ -565,6 +572,7 @@ JOIN authors a
 WHERE b.author_id IN (SELECT author_id FROM books GROUP BY author_id HAVING COUNT(author_id) > 1)
 ORDER BY a.author DESC;
 ```
+Result:
 ```
 title                              |author                  |
 -----------------------------------+------------------------+
@@ -573,6 +581,9 @@ Se Deus me Chamar não Vou          |Mariana Salomao Carrara |
 Upgrade                            |Blake Crouch            |
 Recursion                          |Blake Crouch            |
 ```
+
+## Conclusion
+In 2025, I read over seven thousand pages, most of them from science-fiction and fiction books. One positive aspect of my 2025 reading list is that it included both classic and contemporary literature, ranging from Mary Shelley to Mariana Salomao Carrara. Most of the books were written by male authors from the United States of America. This shows that in 2026 I should focus on adding more female authors to my reading list and try to read more books from other countries, including Brazil. I should also continue reading e-books to save money, as the total cost of the physical books would be over a thousand reais. 
 
 ## References
 * IBM | [O que é linguagem de consulta estruturada (SQL)?](https://www.ibm.com/br-pt/think/topics/structured-query-language)
@@ -584,4 +595,3 @@ Recursion                          |Blake Crouch            |
 * Redgate | [What Is a One-to-Many Relationship in a Database?](https://www.red-gate.com/blog/one-to-many-relationship)
 * Wikipedia | [One-to-many (data model)](https://en.wikipedia.org/wiki/One-to-many_(data_model))
 * DataCamp | [SQL Subquery: A Comprehensive Guide](https://www.datacamp.com/tutorial/sql-subquery)
-* 
